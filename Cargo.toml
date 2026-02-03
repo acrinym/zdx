@@ -7,7 +7,7 @@ default-run = "zdx"
 [dependencies]
 anyhow = "1.0.100"
 base64 = "0.22"
-bytes = "1.11.0"
+bytes = "1.11.1"
 chrono = "0.4.42"
 clap = { version = "4.5.53", features = ["derive", "env"] }
 crossterm = "0.28"
