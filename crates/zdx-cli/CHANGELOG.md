@@ -1,5 +1,113 @@
 # Changelog
 
+## [0.3.0](https://github.com/acrinym/zdx/compare/v0.3.0...v0.3.0) (2026-05-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **providers:** configs pinning gemini:gemini-2.5-flash or gemini:gemini-2.5-flash-lite no longer resolve against the default registry. Switch to gemini:gemini-3.1-flash-lite-preview (fast/cheap) or gemini:gemini-3.5-flash (new flagship Flash).
+* workspace redesign — layered crate structure
+* zdx-core crate removed; use zdx-engine directly
+* zdx-core is now a thin re-export facade; internal module paths changed but the public API surface is preserved.
+* **cli:** move daemon under automations and timestamp automation thread ids
+
+### Features
+
+* add active agent run tracking with monitor dashboard ([39640dc](https://github.com/acrinym/zdx/commit/39640dc1c7b3be4e9f73f88b48cb10eca4d812af))
+* add bundled skills, explorer subagent, and todo tracking ([3a4a2ee](https://github.com/acrinym/zdx/commit/3a4a2eea7eb4cd0a91cd136ed56560c8fb56716e))
+* add MiniMax, Z.AI, and xAI providers ([6caabcd](https://github.com/acrinym/zdx/commit/6caabcd0836cfae5995bd11254fd4e5379826132))
+* **agent:** surface transient provider retries in the transcript ([7da4d29](https://github.com/acrinym/zdx/commit/7da4d29338c3613e3bd40a975b3b7f3d7892eb2a))
+* **artifacts:** update skills, automations, and imagine command to use artifact_dir ([b7d543d](https://github.com/acrinym/zdx/commit/b7d543dec4c4ee32ab74fa53a20e3154d01ba75f))
+* **automations:** add global markdown automations with daemon ([#26](https://github.com/acrinym/zdx/issues/26)) ([d32f230](https://github.com/acrinym/zdx/commit/d32f2300716b8667292793421b9e1f7cf7ebd592))
+* **bot:** stream agent events for live Telegram status updates ([#24](https://github.com/acrinym/zdx/issues/24)) ([074d50c](https://github.com/acrinym/zdx/commit/074d50c8a48387353b58f8d04bced0cd316d0f49))
+* **bot:** switch Telegram formatting from Markdown to HTML ([0a04fc0](https://github.com/acrinym/zdx/commit/0a04fc07d161fa93a4230d0b04d52478f2e655f2))
+* **cli:** add `zdx threads append` and `zdx telegram send-document` commands ([#29](https://github.com/acrinym/zdx/issues/29)) ([d70e4d4](https://github.com/acrinym/zdx/commit/d70e4d4bedcdfd0d55f19dc8862649704871539d))
+* **cli:** add 512px image size option for imagine command ([8da943d](https://github.com/acrinym/zdx/commit/8da943d3a0e8d93090215ec2a7d94a982cea8296))
+* **cli:** add exec event filtering and compatibility fixes ([7a280f2](https://github.com/acrinym/zdx/commit/7a280f2332b15aecb89244c54bc0f741dcea6ab7))
+* **cli:** add thread export command ([1873cf5](https://github.com/acrinym/zdx/commit/1873cf5641268e31c83858b35d3849faedccf6fc))
+* **cli:** add zdx imagine command for Gemini image generation ([#32](https://github.com/acrinym/zdx/issues/32)) ([a4f4dbd](https://github.com/acrinym/zdx/commit/a4f4dbddfc0bbc12d7e91ac8046de7cd0a77018e))
+* **cli:** move daemon under automations and timestamp automation thread ids ([1424fe3](https://github.com/acrinym/zdx/commit/1424fe30f3783cb88ff046b9883410c4ff385f85))
+* **cli:** store telegram bots in zdx home ([9d97a10](https://github.com/acrinym/zdx/commit/9d97a107f953bb88e78446084facf8540fa339ee))
+* **core:** add thread-scoped artifact directory resolution ([99789e3](https://github.com/acrinym/zdx/commit/99789e30665b4a4423d814123a3674ad826bbce9))
+* **core:** expose runtime context as ZDX_* environment variables ([f432317](https://github.com/acrinym/zdx/commit/f43231784d2d2e7220912d597600be15cdef754e))
+* **engine:** atomic activity markers and skip helper subagent runs ([65947d9](https://github.com/acrinym/zdx/commit/65947d90774b65f11882adf0f4b715cf652dfb9b))
+* **events:** persist Notice events without conversation replay ([f830b7f](https://github.com/acrinym/zdx/commit/f830b7fb4ff0533f899a7dcb031e002729013090))
+* **exec:** add --no-system-prompt support ([c908a2d](https://github.com/acrinym/zdx/commit/c908a2d8724a3fb4bf081528bff851b373487618))
+* **imagine:** add image editing support with --source flag ([c7f3071](https://github.com/acrinym/zdx/commit/c7f3071abea77ee878798b74d5a5e60f44839451))
+* **imagine:** default output to $ZDX_HOME/artifacts/ ([3fdbc90](https://github.com/acrinym/zdx/commit/3fdbc90454ac4faea9c958a7a1074251e9d78ab1))
+* **imagine:** support OpenAI image edits ([ec003c3](https://github.com/acrinym/zdx/commit/ec003c38ddf000b46a59392488de3f3180ecfde4))
+* **imagine:** support OpenAI image generation ([ce5c626](https://github.com/acrinym/zdx/commit/ce5c6268da76efdea6c3bab9bfba132e1e1bcc91))
+* **mcp:** add helper CLI and deepwiki config ([6c0f59d](https://github.com/acrinym/zdx/commit/6c0f59ded859dee99019ff9bd0a90e3125ed96c0))
+* **mcp:** add oauth auth flow for remote servers ([81825ac](https://github.com/acrinym/zdx/commit/81825acbe0bb91687198dec0c7e0f5228b0d84e3))
+* **memory:** add proactive save suggestions for interactive surfaces ([d12bd8b](https://github.com/acrinym/zdx/commit/d12bd8ba26ea061a69d56e4ae0d4c1bdecf08eb2))
+* **memory:** add qmd memory indexing ([5c62135](https://github.com/acrinym/zdx/commit/5c6213510fdea06564d557027228459ba34e98ef))
+* **memory:** add qmd recall strategies ([6849649](https://github.com/acrinym/zdx/commit/684964960cee367b6d26be1489ccdb54d0934ce5))
+* **memory:** add qmd status diagnostics ([7631153](https://github.com/acrinym/zdx/commit/7631153ddff51e5fa9d388037a59d198b37f81f0))
+* **memory:** complete auto memory prompt integration ([684ff51](https://github.com/acrinym/zdx/commit/684ff5168f8e9cdb2eacb17806f10946961e2541))
+* **memory:** target qmd search sources ([8beffba](https://github.com/acrinym/zdx/commit/8beffbab9d2865508313efabc5929ac2fef3388d))
+* **models:** detect reasoning from OpenRouter supported_parameters ([e282c07](https://github.com/acrinym/zdx/commit/e282c0712ca939128ecdd8a5872f45a680751852))
+* **monitor:** control named bot services ([fa1ae31](https://github.com/acrinym/zdx/commit/fa1ae3112aa20f202d47c7c208d6fbedff297923))
+* **openai:** add fast mode (service_tier: priority) with /fast toggle and [F] badge ([0fd8ee1](https://github.com/acrinym/zdx/commit/0fd8ee19ba54d57801dd23a57d6c2c12a00629d8))
+* **providers:** add Xiaomi MiMo Token Plan provider ([e1e556a](https://github.com/acrinym/zdx/commit/e1e556a17ff3ee04b83ebc85447b0725581d5256))
+* **providers:** preserve Gemini implicit prompt cache fidelity end-to-end ([d8cc702](https://github.com/acrinym/zdx/commit/d8cc702330e03564e9f33dbc53b22972d9584451))
+* **providers:** refresh Gemini lineup to 3.5 Flash, drop 2.5 Flash family ([8271651](https://github.com/acrinym/zdx/commit/8271651ad198c7b2e9f2a0ea19787d408bbee6de))
+* structured tracing + zdx-monitor TUI dashboard ([#34](https://github.com/acrinym/zdx/issues/34)) ([f0061f1](https://github.com/acrinym/zdx/commit/f0061f1350e40776ef10ffc22faaa945bb666d0d))
+* **thread-search:** exclude current thread from results ([bfa88dd](https://github.com/acrinym/zdx/commit/bfa88dd23b2cd8cc9ec629d1111622c8d4243bbe))
+* **threads:** add qmd index command ([1eb8d36](https://github.com/acrinym/zdx/commit/1eb8d361c1331b1b5cac36830ce7e49398256c27))
+* **threads:** add qmd memory search ([666d9b2](https://github.com/acrinym/zdx/commit/666d9b2418b56fc8ccc044d4d5233670719189db))
+* **threads:** add searchable thread CLI with automation-friendly output ([#27](https://github.com/acrinym/zdx/issues/27)) ([13eca89](https://github.com/acrinym/zdx/commit/13eca896173cd5a6bdb4eb065eed1fb9fe3b1e65))
+* **threads:** add tool-call inspection command ([a4388a6](https://github.com/acrinym/zdx/commit/a4388a6eeb33755932103a28e243e3a2a379a75a))
+* **tui:** add /pwd, /open, /worktree-remove commands ([816d4b7](https://github.com/acrinym/zdx/commit/816d4b754be1dc4df47b4bdd93309e4ac310a1e1))
+* **tui:** add skill installer overlay ([aa3e81a](https://github.com/acrinym/zdx/commit/aa3e81a555b25c64d6897cf8a1ceec6c23ae576a))
+* **tui:** respect [providers.X].models in the model picker ([bc8a8d6](https://github.com/acrinym/zdx/commit/bc8a8d6266007c03b48c61557642da6b3f0ba49e))
+* **zdx-cli:** add telegram topic/send commands with parse modes ([4ac9be1](https://github.com/acrinym/zdx/commit/4ac9be1f9df54a9dc22bef0bed7b8ea9cf6d1dd2))
+* **zdx-cli:** support chat launch model and thinking overrides ([d45d5a8](https://github.com/acrinym/zdx/commit/d45d5a85a91a5a0d4cd50703d2fedf7e4407a046))
+* **zdx-core:** expose thread_search as a first-class agent tool ([#28](https://github.com/acrinym/zdx/issues/28)) ([9a30805](https://github.com/acrinym/zdx/commit/9a30805c4bfad6e302f072cedf26ec97b8c8f90e))
+* **zdx-core:** support CLAUDE.md context fallback ([d7610b3](https://github.com/acrinym/zdx/commit/d7610b32eeb4ad58ae234a8345db31b798da48ac))
+* **zdx-tui:** add btw popup side chat ([2ed5ddd](https://github.com/acrinym/zdx/commit/2ed5ddda75a5ef605f90c02b8e907550174e3d35))
+
+
+### Bug Fixes
+
+* **bash:** close stdin for non-interactive commands ([e473253](https://github.com/acrinym/zdx/commit/e473253a17e9f25c2ec8d9e4ed5185d99a82e36e))
+* **bot:** force low verbosity for Telegram OpenAI replies ([042e93b](https://github.com/acrinym/zdx/commit/042e93ba136bf3949643d976a0619eef70b53e55))
+* **cli:** correct cli_help tests for nested daemon subcommand ([329c8f9](https://github.com/acrinym/zdx/commit/329c8f971b7b82df85b82e8f27675af3286d1eb2))
+* **cli:** remove tool filters from thread search ([ec6b791](https://github.com/acrinym/zdx/commit/ec6b7910bd4fa73deda6e6952da22a2f1fffb006))
+* **cli:** resolve lint issues and split command dispatch ([05de3a1](https://github.com/acrinym/zdx/commit/05de3a1b4acbe7b58ebe7a2f59b1a4fe49a97462))
+* **cli:** show automation runs in chronological order (oldest first) ([a7b1e53](https://github.com/acrinym/zdx/commit/a7b1e5314da015f271d445ace8da12d4110a72d3))
+* **daemon:** prevent duplicate daemon processes ([9e73a9f](https://github.com/acrinym/zdx/commit/9e73a9f9e4b5a0e98181c25dc80bddcb840c5843))
+* fetch openai-codex models from models.dev API ([597c0c1](https://github.com/acrinym/zdx/commit/597c0c12bc7a422493f87cf0febf28c01c0838d7))
+* **models:** don't trust @ai-sdk/anthropic npm hint for non-claude models ([a3ef25f](https://github.com/acrinym/zdx/commit/a3ef25fac74e4f93080ddc63f779cc6bd8807184))
+* **models:** include apiyi and zen in models update ([8cd97b1](https://github.com/acrinym/zdx/commit/8cd97b1d39b23dddebb71cdb501094d8391db069))
+* **models:** include DeepSeek in registry updates ([6cda1ab](https://github.com/acrinym/zdx/commit/6cda1abe7d94c3cd95ad18d30bb5e9679c17542d))
+* **models:** remove deprecated gemini-3-pro-preview defaults ([2d51b8b](https://github.com/acrinym/zdx/commit/2d51b8bcb7106332461e77f06e300325d37d23cd))
+* **models:** use provider field for default model lookup ([9b12644](https://github.com/acrinym/zdx/commit/9b1264422231a7530da9af452b4bdcac7b2b5490))
+* omit max_tokens when unset and harden zen/apiyi routing ([43534fb](https://github.com/acrinym/zdx/commit/43534fbf1f566c256c52021f3c276754a9635ffd))
+* **openai:** preserve responses phases and reasoning replay ([#38](https://github.com/acrinym/zdx/issues/38)) ([5ab0b25](https://github.com/acrinym/zdx/commit/5ab0b2584b82516acde9b714242616e1582416e3))
+* **providers:** rename mimo provider to xiomi ([c6e7ef1](https://github.com/acrinym/zdx/commit/c6e7ef17d63fce8b8d0e6324d27e9ed3d2daa645))
+* **subagent:** avoid argv limits for large prompts ([e2bedde](https://github.com/acrinym/zdx/commit/e2beddef6fe3dad1ceabbe64ddd77f7f4feb7b54))
+* **surfaces:** split output rules by interface ([158126b](https://github.com/acrinym/zdx/commit/158126b4013dffe8382354823f06a79c49ad81f7))
+* **turns:** unify terminal turn events ([64c9763](https://github.com/acrinym/zdx/commit/64c97632458b9641bb826e34cc57d42a240ae5be))
+* **zdx-core:** align file tool params with claude naming ([b109538](https://github.com/acrinym/zdx/commit/b109538d13134d11ca2f52b158b75f63f19ea82c))
+* **zdx-core:** rename grep param path → file_path for consistency ([9b0c2b3](https://github.com/acrinym/zdx/commit/9b0c2b3fd62c6fd86a9a0f14302e1f1cd0088df8))
+
+
+### Performance Improvements
+
+* **ci:** speed up local checks ([b833df5](https://github.com/acrinym/zdx/commit/b833df5317ca593551d2bc6cdcfe12db2649d78c))
+
+
+### Miscellaneous Chores
+
+* force version ([932f93c](https://github.com/acrinym/zdx/commit/932f93c8ade4b8f984f175123df9a070796f84ac))
+
+
+### Code Refactoring
+
+* remove zdx-core facade, migrate surfaces to zdx-engine ([dabf011](https://github.com/acrinym/zdx/commit/dabf01165ad8b48fadcac3fac1c44597507b7fe3))
+* restructure workspace into layered crates ([551de7e](https://github.com/acrinym/zdx/commit/551de7ed985a0f999c41e820227b796e917c5462))
+* workspace redesign — layered crate structure ([7d9fec3](https://github.com/acrinym/zdx/commit/7d9fec3af1fab12428e230ef2a485b7d5bf5cac1))
+
 ## [0.3.0](https://github.com/tallesborges/zdx/compare/v0.2.0...v0.3.0) (2026-02-22)
 
 
