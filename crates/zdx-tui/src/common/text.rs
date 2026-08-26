@@ -225,6 +225,8 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::unicode_not_nfc)]
+    // NFD "éé" input is intentional: tests grapheme-aware truncation handles precomposed vs decomposed Unicode
     fn test_truncate_with_ellipsis_preserves_graphemes() {
         for text in ["⚠️⚠️ab", "👩‍🚀👩‍🚀ab", "👍🏽👍🏽ab", "ééab"]
         {

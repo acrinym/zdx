@@ -472,6 +472,8 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::unicode_not_nfc)]
+    // NFD "éé" input is intentional: tests grapheme-aware span breaking handles precomposed vs decomposed Unicode
     fn test_break_span_by_width_preserves_emoji_graphemes() {
         for text in ["⚠️⚠️", "👩‍🚀👩‍🚀", "👍🏽👍🏽", "éé"] {
             for width in [1, 2, 3] {
