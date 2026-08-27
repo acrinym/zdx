@@ -1036,7 +1036,7 @@ mod tests {
             "names={names:?}, warnings={warnings:?}"
         );
         assert!(
-            names.contains(&"deepwiki-cli"),
+            names.contains(&"ship-first-plan"),
             "names={names:?}, warnings={warnings:?}"
         );
         assert!(

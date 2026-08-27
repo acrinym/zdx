@@ -704,6 +704,8 @@ mod tests {
     use crate::input::CursorMove;
 
     #[test]
+    #[allow(clippy::unicode_not_nfc)]
+    // NFD "éé" input is intentional: tests grapheme-aware wrapping handles precomposed vs decomposed Unicode
     fn wrap_textarea_preserves_emoji_graphemes() {
         for text in ["⚠️⚠️", "👩‍🚀👩‍🚀", "👍🏽👍🏽", "éé"] {
             for width in [1, 2, 3] {

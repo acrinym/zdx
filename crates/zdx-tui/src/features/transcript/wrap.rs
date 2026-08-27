@@ -373,6 +373,8 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::unicode_not_nfc)]
+    // NFD "éé" input is intentional: tests grapheme-aware character wrapping handles precomposed vs decomposed Unicode
     fn test_wrap_chars_preserves_emoji_graphemes() {
         for text in ["⚠️⚠️", "👩‍🚀👩‍🚀", "👍🏽👍🏽", "éé"] {
             for width in [1, 2, 3] {
